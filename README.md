@@ -7,8 +7,8 @@
 2. Grid-верстка
 3. Адаптивная верстка
 4. Методолгоия БЭМ и БЭМ nested
-5. Js
+5. JavaScript
 
 
 ### Ссылка на проект. 
-https://bazhanovrinat.github.io/russian-travel/
+https://bazhanovrinat.github.io/mesto/
