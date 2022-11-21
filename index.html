@@ -4,91 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pages/index.css">
-    <title>Место</title>
+    <link rel="stylesheet" href="./pages/index.css">
+    <title lang="ru">Место</title>
 </head>
 
 <body class="page">
     <header class="header">
-        <img class="header__logo" src="images/logo.png" alt="Логотип">
+        <img class="header__logo" src="./images/logo.png" alt="Логотип">
     </header>
     <main class="content">
         <section class="profile">
             <div class="profile__user">
-                <img class="profile__avatar" src="images/avatar.png" alt="Ваш Аватар">
+                <img class="profile__avatar" src="./images/avatar.png" alt="Ваш Аватар">
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <button class="profile__button profile__edit-button"><img src="images/edit-button.png"
-                            alt="Изображение карандаша"></button>
+                    <button type="button" class="profile__button profile__edit-button"></button>
                     <p class="profile__about">Исследователь океана</p>
                 </div>
             </div>
-            <button class="profile__button profile__add-button"><img src="images/add-button.png"
-                    alt="Изображение плюса"></button>
+            <button type="button" class="profile__button profile__add-button"></button>
         </section>
         <section class="elements">
             <div class="element">
-                <img class="element__image" src="images/karachaevsk-town.png" alt="Руины на фоне гор">
+                <img class="element__image" src="./images/karachaevsk-town.png" alt="Руины на фоне гор">
                 <div class="element__item">
                     <h2 class="element__name">Карачаевск</h2>
-                    <button class="element__button"></button>
+                    <button type="button" class="element__button"></button>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="images/elbrus.png" alt="Гора Эльбрус на дальнем горизонте">
+                <img class="element__image" src="./images/elbrus.png" alt="Гора Эльбрус на дальнем горизонте">
                 <div class="element__item">
                     <h2 class="element__name">Гора Эльбрус</h2>
-                    <button class="element__button"></button>
+                    <button type="button" class="element__button"></button>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="images/dombay.png" alt="Изображение горы в облаках">
+                <img class="element__image" src="./images/dombay.png" alt="Изображение горы в облаках">
                 <div class="element__item">
                     <h2 class="element__name">Домбай</h2>
-                    <button class="element__button"></button>
+                    <button type="button" class="element__button"></button>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="images/solonchak.jpg"
+                <img class="element__image" src="./images/solonchak.jpg"
                     alt="Изображение на которомос небо сливается с землей">
                 <div class="element__item">
                     <h2 class="element__name">Солончак в Боливии</h2>
-                    <button class="element__button"></button>
+                    <button type="button" class="element__button"></button>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="images/alpi.jpg" alt="Домик в горах">
+                <img class="element__image" src="./images/alpi.jpg" alt="Домик в горах">
                 <div class="element__item">
                     <h2 class="element__name">Альпы</h2>
-                    <button class="element__button"></button>
+                    <button type="button" class="element__button"></button>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="images/sahara.jpg" alt="Песчаное море">
+                <img class="element__image" src="./images/sahara.jpg" alt="Песчаное море">
                 <div class="element__item">
                     <h2 class="element__name">Пустыня Сахара</h2>
-                    <button class="element__button"></button>
+                    <button type="button" class="element__button"></button>
                 </div>
             </div>
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__copyright">&copy;&nbsp;2022 Mesto Russia</p>
+        <p class="footer__copyright" lang="en">&copy;&nbsp;2022 Mesto Russia</p>
     </footer>
     <div class="popup">
         <div class="popup__container">
-            <button class="popup__close"></button>
+            <button type="button" class="popup__close"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form">
                 <fieldset class="popup__item">
-                    <input class="popup__input popup__input_name" type="text" placeholder="Имя">
-                    <input class="popup__input popup__input_about" type="text" placeholder="О себе">
-                    <button class="popup__submit">Сохранить</button>
+                    <input class="popup__input popup__input_name" name="name" type="text" placeholder="Имя">
+                    <input class="popup__input popup__input_about" name="about" type="text" placeholder="О себе">
+                    <button type="submit" class="popup__submit">Сохранить</button>
                 </fieldset>
             </form>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>

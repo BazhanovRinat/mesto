@@ -1,5 +1,5 @@
 .element__button {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     height: 19px;
     width: 22px;
     align-self: center;
@@ -9,12 +9,12 @@
     transition: 0.5s;
     cursor: pointer;
     background-image: url(../../../images/like.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .element__button:hover {
     opacity: 0.5;
 }
 
-.element__button:active {
-    background-image: url(../../../images/like-active.png);
-}

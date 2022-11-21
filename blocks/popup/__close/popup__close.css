@@ -6,16 +6,19 @@
     border: 0;
     background-image: url(../../../images/close-icon.png);
     background-color: rgba(54, 54, 54, 0);
-    position: absolute;
+    position: relative;
     right: -40px;
     top: -40px;
     cursor: pointer;
     transition: 0.5s;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-self: end;
 }
 
 .popup__close:hover {
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 650px) {

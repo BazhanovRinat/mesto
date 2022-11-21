@@ -1,7 +1,7 @@
 .popup__item {
     display: flex;
     flex-direction: column;
-    border: 0;
+    border: none;
     margin: 0;
     padding: 0;
 }

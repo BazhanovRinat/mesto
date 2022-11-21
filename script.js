@@ -11,25 +11,31 @@ let profileName = document.querySelector(".profile__name");
 let profileAbout = document.querySelector(".profile__about");
 
 
+
 function popupOpen() {
-    popup.classList.add("popup_opend");
+    popup.classList.add("popup_opened");
+    nameInput.value = profileName.textContent;
+    aboutInput.value = profileAbout.textContent;
 }
 
 function popupExit() {
-    popup.classList.remove("popup_opend");
+    popup.classList.remove("popup_opened");
 }
 
-editButtom.addEventListener("click", popupOpen);
-popupColse.addEventListener("click", popupExit);
+
 
 
 
 function formSubmitHandler(evt) {
     evt.preventDefault();
 
-    profileName.textContent = nameInput.value
-    profileAbout.textContent = aboutInput.value
-    popup.classList.remove("popup_opend");
+    profileName.textContent = nameInput.value;
+    profileAbout.textContent = aboutInput.value;
+    popup.classList.remove("popup_opened");
 }
 form.addEventListener('submit', formSubmitHandler);
+
+editButtom.addEventListener("click", popupOpen);
+popupColse.addEventListener("click", popupExit);
+
 

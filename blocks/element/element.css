@@ -1,5 +1,6 @@
 .element {
-    background-color: white;
+    background-color: #FFFFFF;
     border-radius: 10px;
     box-sizing: border-box;
+    width: 282px;
 }
