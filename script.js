@@ -4,8 +4,8 @@ let popup = document.querySelector(".popup");
 
 let form = document.querySelector(".popup__form");
 
-let nameInput = document.querySelector(".popup__input_name"); 
-let aboutInput = document.querySelector(".popup__input_about");
+let nameInput = document.querySelector(".popup__input_name_name"); 
+let aboutInput = document.querySelector(".popup__input_name_about");
 
 let profileName = document.querySelector(".profile__name"); 
 let profileAbout = document.querySelector(".profile__about");
@@ -31,7 +31,7 @@ function formSubmitHandler(evt) {
 
     profileName.textContent = nameInput.value;
     profileAbout.textContent = aboutInput.value;
-    popup.classList.remove("popup_opened");
+    popupExit();
 }
 form.addEventListener('submit', formSubmitHandler);
 

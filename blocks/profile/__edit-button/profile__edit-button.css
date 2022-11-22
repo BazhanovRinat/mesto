@@ -4,11 +4,12 @@
     height: 24px;
     margin: 0;
     padding: 0;
-    align-self: center;
-    background-image: url(../../../images/edit-button.png);
+    background-image: url(../../../images/edit-button.svg);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: 10px 10px;
+    align-self: center;
+    margin-left: 15px;
 }
 
 @media screen and (max-width: 420px) {
@@ -16,5 +17,8 @@
         height: 18px;
         width: 18px;
         justify-content: center;
+        background-size: 7.5px 7.5px;
+        margin-left: 0;
+        align-self: end;
     } 
 }

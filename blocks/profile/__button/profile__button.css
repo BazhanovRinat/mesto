@@ -1,5 +1,5 @@
 .profile__button {
-    background-color: rgba(00, 00, 00, 0);
+    background-color: transparent;
     transition: 0.5s;
     cursor: pointer;
 }

@@ -8,6 +8,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 336px;
+    margin-top: 16px;
 }
 
 
@@ -24,6 +25,7 @@
         font-size: 14px;
         line-height: 17px;
         width: 282px;
-        
+        margin-top: 0;
+        overflow: inherit;
     } 
 }

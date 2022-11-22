@@ -2,7 +2,7 @@
     width: 142px;
     height: 33px;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 @media screen and (max-width: 800px) {
@@ -13,6 +13,7 @@
 
 @media screen and (max-width: 420px) {
     .header__logo {
-        min-width: 103.74px;
+        height: 24.4px;
+        width: 103.74px;
 }
 }
