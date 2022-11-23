@@ -17,7 +17,7 @@
 
 @media screen and (max-width: 800px) {
     .elements {
-        margin: 20px 19px 25px;
+        margin: 50px 19px 25px;
         gap: 20px 17px;
 }
 }
