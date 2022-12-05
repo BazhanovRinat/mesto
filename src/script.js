@@ -1,8 +1,8 @@
-const editButtom = document.querySelector(".profile__edit-button"); //Конка корректировать
+const buttomEdit = document.querySelector(".profile__edit-button"); //Конка корректировать
 const popupEditCloseButtom = document.querySelector(".popup-edit__close"); //Кнопка закрыть попап
 const popupEdit = document.querySelector(".popup-edit"); // сам попап
 
-const addButtom = document.querySelector(".profile__add-button");
+const buttomAdd = document.querySelector(".profile__add-button");
 const popupAddCloseButtom = document.querySelector(".popup-add__close");
 const popupAdd = document.querySelector(".popup-add");
 
@@ -10,7 +10,7 @@ const popupZoom = document.querySelector(".popup-zoom");
 const popupZoomCloseButtom = document.querySelector(".popup-zoom__close");
 
 const formEdit = document.querySelector(".popup-edit__form"); // форма в попапе
-const formAdd = document.querySelector(".popup-add__form");
+const addForm = document.querySelector(".popup-add__form");
 
 const nameInput = document.querySelector(".popup__input_name_name"); // Имя в инпуте
 const aboutInput = document.querySelector(".popup__input_name_about");
@@ -22,7 +22,10 @@ const profileAbout = document.querySelector(".profile__about");
 
 const elements = document.querySelector(".elements");
 
+const cardsTemplate = document.querySelector("#new-cards").content;
 
+const popupZoomImage = document.querySelector('.popup-zoom__image');
+const popupZoomText = document.querySelector(".popup-zoom__title");
 
 const initialCards = [
     {
@@ -50,9 +53,9 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+
 // Стартовые карточки
 initialCards.forEach(function (element) {
-    const cardsTemplate = document.querySelector("#new-cards").content;
     const cardsElement = cardsTemplate.querySelector(".element").cloneNode(true);
     cardsElement.querySelector(".element__image").src = element.link;
     cardsElement.querySelector(".element__name").textContent = element.name;
@@ -64,94 +67,92 @@ initialCards.forEach(function (element) {
     });
     cardsElement.querySelector(".element__image").addEventListener("click", function () {
         popupZoom.classList.add("popup_opened");
-        const popupZoomImage = document.querySelector('.popup-zoom__image')
-        const popupZoomText = document.querySelector(".popup-zoom__title")
         popupZoomImage.src = element.link;
         popupZoomText.textContent = element.name;
     });
     elements.prepend(cardsElement);
 });
 
-//Каточки
-function addCard(imageValue, nameValue) {
-    const cardsTemplate = document.querySelector("#new-cards").content;
-    const cardsElement = cardsTemplate.querySelector(".element").cloneNode(true);
-
-    cardsElement.querySelector(".element__image").src = imageValue
-    cardsElement.querySelector(".element__name").textContent = nameValue;
-    cardsElement.querySelector(".element__button").addEventListener("click", function (like) {
+//Новые Карточки
+function createCard(imageValue, nameValue) {
+    elements.insertAdjacentHTML("afterbegin", `<div class="element">
+    <img class="element__delete" src="./images/trash.svg">
+    <img class="element__image" src="${imageValue}" alt="Карточка">
+    <div class="element__item">
+        <h2 class="element__name">${nameValue}</h2>
+        <button type="button" class="element__button"></button>
+    </div>
+</div>`)
+    const buttomTrash = document.querySelector(".element__delete");
+    const card = document.querySelector(".element") 
+    buttomTrash.addEventListener("click", function () {
+        card.remove();
+    });
+    const buttonLike = document.querySelector(".element__button")
+    buttonLike.addEventListener("click", function (like) {
         like.target.classList.toggle("element__button_active");
     });
-    cardsElement.querySelector(".element__delete").addEventListener("click", function () {
-        cardsElement.remove();
-    });
-    cardsElement.querySelector(".element__image").addEventListener("click", function () {
+    const imageZoom = document.querySelector(".element__image");
+    imageZoom.addEventListener("click", function () {
         popupZoom.classList.add("popup_opened");
-        const popupZoomImage = document.querySelector('.popup-zoom__image')
-        const popupZoomText = document.querySelector(".popup-zoom__title")
         popupZoomImage.src = imageValue;
         popupZoomText.textContent = nameValue;
     });
-    elements.prepend(cardsElement);
 }
 
-function formSubmitAdd(evt) {
+function submitAddForm(evt) {
     evt.preventDefault();
     const image = imageInputLink;
     const name = nameInputPlace;
 
-    addCard(image.value, name.value)
-    popupAddExit();
+    createCard(image.value, name.value)
+    closePopup(popupAdd);
     image.value = '';
     name.value = '';
 }
-formAdd.addEventListener('submit', formSubmitAdd);
-
-
-
-//Функции добавлнеия и убирания классов попапу
-function popupEditOpen() {
-    popupEdit.classList.add("popup_opened"); //добовляем попапу класс
-    nameInput.value = profileName.textContent; // текст профиля будет тоброжен в инпуте
-    aboutInput.value = profileAbout.textContent;
-}
-
-function popupEditExit() {
-    popupEdit.classList.remove("popup_opened"); //убираем класс попапу
-}
-
-
-function popupAddOpen() {
-    popupAdd.classList.add("popup_opened"); //добовляем попапу класс
-}
-
-function popupAddExit() {
-    popupAdd.classList.remove("popup_opened");
-}
-
-function popupZoomExit() {
-    popupZoom.classList.remove("popup_opened");
-}
+addForm.addEventListener('submit', submitAddForm);
 
 //функция сабмита
-function formSubmitHandler(evt) {
+function submitFormHandler(evt) {
     evt.preventDefault();
 
     profileName.textContent = nameInput.value; // введенное значение импeтов задаем тексту в профиле
     profileAbout.textContent = aboutInput.value;
-    popupEditExit();
+    closePopup(popupEdit);
 }
-formEdit.addEventListener('submit', formSubmitHandler);
+formEdit.addEventListener('submit', submitFormHandler);
 
+//Функции добавлнеия и убирания классов попапу
+function openPopup(popup) {
+    popup.classList.add("popup_opened")
+}
+
+function closePopup(popup) {
+    popup.classList.remove("popup_opened")
+}
 
 // кнопки активации функции
-editButtom.addEventListener("click", popupEditOpen);
-popupEditCloseButtom.addEventListener("click", popupEditExit);
+buttomEdit.addEventListener("click", () => {
+    openPopup(popupEdit);
+    nameInput.value = profileName.textContent;
+    aboutInput.value = profileAbout.textContent;
+});
+buttomAdd.addEventListener("click", () => {
+    openPopup(popupAdd);
+});
 
-addButtom.addEventListener("click", popupAddOpen);
-popupAddCloseButtom.addEventListener("click", popupAddExit);
+popupEditCloseButtom.addEventListener("click", () => {
+    closePopup(popupEdit);
+});
 
-popupZoomCloseButtom.addEventListener("click",popupZoomExit);
+popupAddCloseButtom.addEventListener("click", () => {
+    closePopup(popupAdd);
+});
+
+popupZoomCloseButtom.addEventListener("click", () => {
+    closePopup(popupZoom);
+});
+
 
 
 
