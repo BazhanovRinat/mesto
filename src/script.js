@@ -85,6 +85,7 @@ function submitformAddCard(evt) {
 
     elements.prepend(createCard(image.value, name.value))
     closePopupSubmit(popupAdd);
+    formAddCard.reset();
 }
 formAddCard.addEventListener('submit', submitformAddCard);
 
@@ -92,7 +93,7 @@ function submitEditProfileForm(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileAbout.textContent = aboutInput.value;
-    closePopupSubmit(popupEdit);
+    closePopupEsc(popupEdit);
 
 }
 formEditProfile.addEventListener('submit', submitEditProfileForm);
@@ -107,6 +108,34 @@ function closePopup(popup) {
 popup.forEach(closeElement => {
     closeElement.addEventListener("click", closePopup);
 })
+
+// Открытие попап
+function openPopup(popup) {
+    popup.classList.add("popup_opened")
+}
+
+buttonOpenEditProfileForm.addEventListener("click", () => {
+    openPopup(popupEdit);
+    nameInput.value = profileName.textContent;
+    aboutInput.value = profileAbout.textContent;
+    disableButtonSubmit()
+    hideInputError(object, popupForm, popupInput);
+});
+buttonOpenAddCardForm.addEventListener("click", () => {
+    openPopup(popupAdd);
+    disableButtonSubmit()
+});
+
+function disableButtonSubmit() {
+    const submitButton = document.querySelectorAll(".popup__submit")
+    submitButton.forEach(disabledElement => {
+        disabledElement.classList.add("popup__submit_disabled");
+        disabledElement.disabled = true;
+    })
+}
+
+
+
 
 //Закрытие попап на крестик
 function closeButton() {
@@ -140,32 +169,8 @@ function closePopupSubmit(popup) {
     popup.classList.remove("popup_opened")
 }
 
-// Открытие попап
-function openPopup(popup) {
-    popup.classList.add("popup_opened")
-}
 
-buttonOpenEditProfileForm.addEventListener("click", () => {
-    openPopup(popupEdit);
-    nameInput.value = profileName.textContent;
-    aboutInput.value = profileAbout.textContent;
-    disableButtonSubmit()
-    hideInputError(object, popupForm, popupInput);
-});
-buttonOpenAddCardForm.addEventListener("click", () => {
-    openPopup(popupAdd);
-    disableButtonSubmit()
-});
-
-function disableButtonSubmit () {
-const submitButton = document.querySelectorAll(".popup__submit")
-submitButton.forEach(disabledElement => {
-    disabledElement.classList.add("popup__submit_disabled");
-    disabledElement.disabled = true;
-})
-}
-
-
+// Общая функция закрытия попап
 
 
 
