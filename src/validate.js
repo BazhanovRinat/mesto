@@ -9,37 +9,35 @@ const object = {
     errorClass: 'popup__input-error_type_active'
 };
 
-const popupForm = document.querySelector(object.formSelector);
-const popupInput = popupForm.querySelector(object.inputSelector);
-const popupError = popupForm.querySelector(`.${popupInput.id}-error`)
+const popupInput = document.querySelector(object.inputSelector);
 
-const showInputError = (object, popupForm, popupInput, errorMessage) => {
-    const popupError = popupForm.querySelector(`.${popupInput.id}-error`)
+const showInputError = (object, formSelector, popupInput, errorMessage) => {
+    const popupError = document.querySelector(`.${popupInput.id}-error`)
     popupInput.classList.add(object.inputErrorClass);
     popupError.textContent = errorMessage;
     popupError.classList.add(object.errorClass);
 };
-const hideInputError = (object, popupForm, popupInput) => {
-    const popupError = popupForm.querySelector(`.${popupInput.id}-error`)
+const hideInputError = (object, formSelector, popupInput) => {
+    const popupError = document.querySelector(`.${popupInput.id}-error`)
     popupInput.classList.remove(object.inputErrorClass);
     popupError.classList.remove(object.errorClass);
     popupError.textContent = "";
 };
 
-const isValid = (popupForm, popupInput) => {
+const isValid = (formSelector, popupInput) => {
     if (popupInput.validity.valid) {
-        hideInputError(object, popupForm, popupInput);
+        hideInputError(object, formSelector, popupInput);
     } else {
-        showInputError(object, popupForm, popupInput, popupInput.validationMessage);
+        showInputError(object, formSelector, popupInput, popupInput.validationMessage);
     }
 };
 //
-const setEventListeners = (object, popupForm) => {
-    const popupInputList = Array.from(popupForm.querySelectorAll(object.inputSelector));
-    const buttonPopupSubmit = popupForm.querySelector(object.submitButtonSelector);
+const setEventListeners = (object, formSelector) => {
+    const popupInputList = Array.from(formSelector.querySelectorAll(object.inputSelector));
+    const buttonPopupSubmit = formSelector.querySelector(object.submitButtonSelector);
     popupInputList.forEach((popupInput) => {
         popupInput.addEventListener("input", () => {
-            isValid(popupForm, popupInput)
+            isValid(formSelector, popupInput)
             toggleButtonState(object, popupInputList, buttonPopupSubmit);
              });
   });
@@ -48,8 +46,8 @@ const setEventListeners = (object, popupForm) => {
 
 const enableValidation = (object) => {
     const popupFormList = Array.from(document.querySelectorAll(object.formSelector));
-    popupFormList.forEach((popupForm) => {
-        setEventListeners(object, popupForm);
+    popupFormList.forEach((formSelector) => {
+        setEventListeners(object, formSelector);
     });
 };
 

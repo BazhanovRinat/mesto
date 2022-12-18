@@ -25,6 +25,9 @@ const popupZoomImage = document.querySelector('.popup-zoom__image');
 const popupZoomText = document.querySelector(".popup-zoom__title");
 
 const popupElements = document.querySelectorAll(".popup");
+const popupExit = document.querySelectorAll(".popup__close")
+const buttomAddSubmit = document.querySelector(".popup-add__submit")
+const buttomEditSubmit = document.querySelector(".popup-edit__submit")
 
 const initialCards = [
     {
@@ -61,8 +64,9 @@ initialCards.forEach(function (element) {
 //Новые Карточки
 function createCard(imageValue, nameValue) {
     const cardsElement = cardsTemplate.querySelector(".element").cloneNode(true);
-    cardsElement.querySelector(".element__image").src = imageValue;
-    cardsElement.querySelector(".element__image").alt = "Карточка";
+    const imageElement = cardsElement.querySelector(".element__image")
+    imageElement.src = imageValue;
+    imageElement.alt = "Карточка";
     cardsElement.querySelector(".element__name").textContent = nameValue;
     cardsElement.querySelector(".element__button").addEventListener("click", function (like) {
         like.target.classList.toggle("element__button_active");
@@ -70,9 +74,10 @@ function createCard(imageValue, nameValue) {
     cardsElement.querySelector(".element__delete").addEventListener("click", function () {
         cardsElement.remove();
     });
-    cardsElement.querySelector(".element__image").addEventListener("click", function () {
+    imageElement.addEventListener("click", function () {
         openPopup(popupZoom);
         popupZoomImage.src = imageValue;
+        popupZoomImage.alt = "Карточка"
         popupZoomText.textContent = nameValue;
     });
     return cardsElement;
@@ -84,7 +89,7 @@ function submitformAddCard(evt) {
     const name = nameInputPlace;
 
     elements.prepend(createCard(image.value, name.value))
-    closePopupSubmit(popupAdd);
+    closePopup(popupAdd);
     formAddCard.reset();
 }
 formAddCard.addEventListener('submit', submitformAddCard);
@@ -93,84 +98,65 @@ function submitEditProfileForm(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileAbout.textContent = aboutInput.value;
-    closePopupEsc(popupEdit);
+    closePopup(popupEdit);
 
 }
 formEditProfile.addEventListener('submit', submitEditProfileForm);
 
-//Закрытие попап нажатием на попап
-const popup = document.querySelectorAll(".popup");
-
-function closePopup(popup) {
-    popup.target.classList.remove("popup_opened")
-}
-
-popup.forEach(closeElement => {
-    closeElement.addEventListener("click", closePopup);
-})
-
 // Открытие попап
 function openPopup(popup) {
     popup.classList.add("popup_opened")
+    document.addEventListener('keydown', keyHandler)
+}
+// Закрытие попап
+const closePopup = (popup) => {
+    popup.classList.remove('popup_opened')
+    document.removeEventListener('keydown', keyHandler)
 }
 
 buttonOpenEditProfileForm.addEventListener("click", () => {
     openPopup(popupEdit);
     nameInput.value = profileName.textContent;
     aboutInput.value = profileAbout.textContent;
-    disableButtonSubmit()
-    hideInputError(object, popupForm, popupInput);
+    disableButtonSubmit(buttomEditSubmit)
+    //hideInputError(object, object.formSelector, popupInput)
 });
 buttonOpenAddCardForm.addEventListener("click", () => {
     openPopup(popupAdd);
-    disableButtonSubmit()
+    disableButtonSubmit(buttomAddSubmit)
 });
 
-function disableButtonSubmit() {
-    const submitButton = document.querySelectorAll(".popup__submit")
-    submitButton.forEach(disabledElement => {
-        disabledElement.classList.add("popup__submit_disabled");
-        disabledElement.disabled = true;
-    })
+function disableButtonSubmit(buttom) {
+    buttom.classList.add("popup__submit_disabled");
+    buttom.disabled = true;
 }
-
-
-
 
 //Закрытие попап на крестик
-function closeButton() {
-    popupElements.forEach(closePopup => {
-        closePopup.addEventListener("click", (evt) => {
-            if (evt.target.classList.contains("popup__close")) {
-                closePopup.classList.remove("popup_opened")
-            }
-        })
+popupExit.forEach(closeElement => {
+    closeElement.addEventListener("click", (evt) => {
+        if (!evt.target.closest("popup__container")) {
+            closePopup(evt.target.closest(".popup"))
+        }
     })
-}
-closeButton()
+})
 
 //Закрытие попап на Esc
-const closePopupEsc = (popup) => {
-    popup.classList.remove('popup_opened')
-}
-
 function keyHandler(evt) {
-    popupElements.forEach(closePopup => {
+    popupElements.forEach(closeElement => {
         if (evt.key === 'Escape') {
-            closePopup.classList.remove('popup_opened')
+            closePopup(closeElement);
         }
     })
 }
+//Закрытие попап нажатием на попап
+popupElements.forEach(closeElement => {
+    closeElement.addEventListener("click", (evt) => {
+        if (evt.target.classList.contains("popup_opened"))
+            closePopup(closeElement)
+    })
+});
 
-document.addEventListener('keydown', keyHandler)
 
-//Закрытие попап на сабмит
-function closePopupSubmit(popup) {
-    popup.classList.remove("popup_opened")
-}
-
-
-// Общая функция закрытия попап
 
 
 
