@@ -9,26 +9,24 @@ const object = {
     errorClass: 'popup__input-error_type_active'
 };
 
-const popupInput = document.querySelector(object.inputSelector);
-
-const showInputError = (object, formSelector, popupInput, errorMessage) => {
-    const popupError = document.querySelector(`.${popupInput.id}-error`)
-    popupInput.classList.add(object.inputErrorClass);
+const showInputError = (object, formSelector, inputSelector, errorMessage) => {
+    const popupError = document.querySelector(`.${inputSelector.id}-error`)
+    inputSelector.classList.add(object.inputErrorClass);
     popupError.textContent = errorMessage;
     popupError.classList.add(object.errorClass);
 };
-const hideInputError = (object, formSelector, popupInput) => {
-    const popupError = document.querySelector(`.${popupInput.id}-error`)
-    popupInput.classList.remove(object.inputErrorClass);
+const hideInputError = (object, formSelector, inputSelector) => {
+    const popupError = document.querySelector(`.${inputSelector.id}-error`)
+    inputSelector.classList.remove(object.inputErrorClass);
     popupError.classList.remove(object.errorClass);
     popupError.textContent = "";
 };
 
-const isValid = (formSelector, popupInput) => {
-    if (popupInput.validity.valid) {
-        hideInputError(object, formSelector, popupInput);
+const isValid = (formSelector, inputSelector) => {
+    if (inputSelector.validity.valid) {
+        hideInputError(object, formSelector, inputSelector);
     } else {
-        showInputError(object, formSelector, popupInput, popupInput.validationMessage);
+        showInputError(object, formSelector, inputSelector, inputSelector.validationMessage);
     }
 };
 //

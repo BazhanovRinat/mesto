@@ -24,8 +24,8 @@ const cardsTemplate = document.querySelector("#new-cards").content;
 const popupZoomImage = document.querySelector('.popup-zoom__image');
 const popupZoomText = document.querySelector(".popup-zoom__title");
 
-const popupElements = document.querySelectorAll(".popup");
-const popupExit = document.querySelectorAll(".popup__close")
+const popupList = document.querySelectorAll(".popup");
+const buttonCloseList = document.querySelectorAll(".popup__close")
 const buttomAddSubmit = document.querySelector(".popup-add__submit")
 const buttomEditSubmit = document.querySelector(".popup-edit__submit")
 
@@ -132,24 +132,23 @@ function disableButtonSubmit(buttom) {
 }
 
 //Закрытие попап на крестик
-popupExit.forEach(closeElement => {
-    closeElement.addEventListener("click", (evt) => {
-        if (!evt.target.closest("popup__container")) {
-            closePopup(evt.target.closest(".popup"))
-        }
-    })
+buttonCloseList.forEach(btn => {
+    const popup = btn.closest(".popup");
+    btn.addEventListener("click", () => closePopup(popup));
 })
 
 //Закрытие попап на Esc
 function keyHandler(evt) {
-    popupElements.forEach(closeElement => {
-        if (evt.key === 'Escape') {
-            closePopup(closeElement);
+    if (evt.key === 'Escape') {
+        popopOpend = document.querySelector(".popup_opened")
+        popup = popopOpend.closest(".popup")
+            closePopup(popup)
         }
-    })
-}
+    }
+
+
 //Закрытие попап нажатием на попап
-popupElements.forEach(closeElement => {
+popupList.forEach(closeElement => {
     closeElement.addEventListener("click", (evt) => {
         if (evt.target.classList.contains("popup_opened"))
             closePopup(closeElement)
