@@ -141,8 +141,7 @@ buttonCloseList.forEach(btn => {
 function keyHandler(evt) {
     if (evt.key === 'Escape') {
         popopOpend = document.querySelector(".popup_opened")
-        popup = popopOpend.closest(".popup")
-            closePopup(popup)
+            closePopup(popopOpend)
         }
     }
 
