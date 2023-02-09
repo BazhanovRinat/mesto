@@ -1,3 +1,6 @@
+import Card from "./card.js"
+import FormValidator from "./validate.js"
+
 const buttonOpenEditProfileForm = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup-edit");
 
@@ -28,6 +31,7 @@ const popupList = document.querySelectorAll(".popup");
 const buttonCloseList = document.querySelectorAll(".popup__close")
 const buttomAddSubmit = document.querySelector(".popup-add__submit")
 const buttomEditSubmit = document.querySelector(".popup-edit__submit")
+//const cardLike = document.querySelector(".element__button"); 
 
 const initialCards = [
     {
@@ -56,42 +60,37 @@ const initialCards = [
     }
 ];
 
-// Стартовые карточки
-initialCards.forEach(function (element) {
-    elements.prepend(createCard(element.link, element.name))
-});
+const object = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit',
+    inactiveButtonClass: 'popup__submit_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_type_active'
+};
 
-//Новые Карточки
-function createCard(imageValue, nameValue) {
-    const cardsElement = cardsTemplate.querySelector(".element").cloneNode(true);
-    const imageElement = cardsElement.querySelector(".element__image")
-    imageElement.src = imageValue;
-    imageElement.alt = "Карточка";
-    cardsElement.querySelector(".element__name").textContent = nameValue;
-    cardsElement.querySelector(".element__button").addEventListener("click", function (like) {
-        like.target.classList.toggle("element__button_active");
-    });
-    cardsElement.querySelector(".element__delete").addEventListener("click", function () {
-        cardsElement.remove();
-    });
-    imageElement.addEventListener("click", function () {
-        openPopup(popupZoom);
-        popupZoomImage.src = imageValue;
-        popupZoomImage.alt = "Карточка"
-        popupZoomText.textContent = nameValue;
-    });
-    return cardsElement;
+function renderCard(name, link) {
+    const card = new Card(name, link, "#new-cards")
+    const cardElement = card.createCard();
+
+    return cardElement
 }
+
+initialCards.forEach((element) => {
+    elements.prepend(renderCard(element.name, element.link))
+})
+
 //функции сабмита
 function submitformAddCard(evt) {
     evt.preventDefault();
     const image = imageInputLink;
     const name = nameInputPlace;
 
-    elements.prepend(createCard(image.value, name.value))
+    elements.prepend(renderCard(name.value, image.value))
     closePopup(popupAdd);
     formAddCard.reset();
 }
+
 formAddCard.addEventListener('submit', submitformAddCard);
 
 function submitEditProfileForm(evt) {
@@ -101,17 +100,13 @@ function submitEditProfileForm(evt) {
     closePopup(popupEdit);
 
 }
+
 formEditProfile.addEventListener('submit', submitEditProfileForm);
 
 // Открытие попап
 function openPopup(popup) {
     popup.classList.add("popup_opened")
     document.addEventListener('keydown', keyHandler)
-}
-// Закрытие попап
-const closePopup = (popup) => {
-    popup.classList.remove('popup_opened')
-    document.removeEventListener('keydown', keyHandler)
 }
 
 buttonOpenEditProfileForm.addEventListener("click", () => {
@@ -121,10 +116,17 @@ buttonOpenEditProfileForm.addEventListener("click", () => {
     disableButtonSubmit(buttomEditSubmit)
     //hideInputError(object, object.formSelector, popupInput)
 });
+
 buttonOpenAddCardForm.addEventListener("click", () => {
     openPopup(popupAdd);
     disableButtonSubmit(buttomAddSubmit)
 });
+
+// Закрытие попап
+const closePopup = (popup) => {
+    popup.classList.remove('popup_opened')
+    document.removeEventListener('keydown', keyHandler)
+}
 
 function disableButtonSubmit(buttom) {
     buttom.classList.add("popup__submit_disabled");
@@ -141,9 +143,9 @@ buttonCloseList.forEach(btn => {
 function keyHandler(evt) {
     if (evt.key === 'Escape') {
         popopOpend = document.querySelector(".popup_opened")
-            closePopup(popopOpend)
-        }
+        closePopup(popopOpend)
     }
+}
 
 
 //Закрытие попап нажатием на попап
@@ -153,6 +155,12 @@ popupList.forEach(closeElement => {
             closePopup(closeElement)
     })
 });
+
+const popupEditForm = new FormValidator(object, ".popup-edit__form")
+popupEditForm.enableValidation()
+
+const popapAddForm = new FormValidator(object, ".popup-add__form")
+popapAddForm.enableValidation()
 
 
 
