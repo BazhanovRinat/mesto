@@ -21,14 +21,14 @@ export default class Card {
     }
 
     _zoomCard() {
-        this.popupZoom = document.querySelector(".popup-zoom");
-        this.popupZoomImage = document.querySelector('.popup-zoom__image');
-        this.popupZoomText = document.querySelector(".popup-zoom__title");
+        this._popupZoom = document.querySelector(".popup-zoom");
+        this._popupZoomImage = document.querySelector('.popup-zoom__image');
+        this._popupZoomText = document.querySelector(".popup-zoom__title");
         
-        this.popupZoom.classList.add("popup_opened");
-        this.popupZoomImage.src = this._link;
-        this.popupZoomImage.alt = "Карточка"
-        this.popupZoomText.textContent = this._name;
+        this._popupZoom.classList.add("popup_opened");
+        this._popupZoomImage.src = this._link;
+        this._popupZoomImage.alt = "Карточка"
+        this._popupZoomText.textContent = this._name;
     }
 
     _setEventListeners() {
