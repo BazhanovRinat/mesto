@@ -17,13 +17,18 @@ export default class Card {
 
     _removeCard() {
         this._element.remove()
+        this._element = null;
     }
 
     _zoomCard() {
-        openPopup(popupZoom);
-        popupZoomImage.src = this._link;
-        popupZoomImage.alt = "Карточка"
-        popupZoomText.textContent = this._name;
+        this.popupZoom = document.querySelector(".popup-zoom");
+        this.popupZoomImage = document.querySelector('.popup-zoom__image');
+        this.popupZoomText = document.querySelector(".popup-zoom__title");
+        
+        this.popupZoom.classList.add("popup_opened");
+        this.popupZoomImage.src = this._link;
+        this.popupZoomImage.alt = "Карточка"
+        this.popupZoomText.textContent = this._name;
     }
 
     _setEventListeners() {
@@ -50,6 +55,8 @@ export default class Card {
         return this._element;
     }
 }
+
+
 
 
 

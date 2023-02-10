@@ -7,8 +7,6 @@ const popupEdit = document.querySelector(".popup-edit");
 const buttonOpenAddCardForm = document.querySelector(".profile__add-button");
 const popupAdd = document.querySelector(".popup-add");
 
-const popupZoom = document.querySelector(".popup-zoom");
-
 const formEditProfile = document.querySelector(".popup-edit__form");
 const formAddCard = document.querySelector(".popup-add__form");
 
@@ -23,9 +21,6 @@ const profileAbout = document.querySelector(".profile__about");
 const elements = document.querySelector(".elements");
 
 const cardsTemplate = document.querySelector("#new-cards").content;
-
-const popupZoomImage = document.querySelector('.popup-zoom__image');
-const popupZoomText = document.querySelector(".popup-zoom__title");
 
 const popupList = document.querySelectorAll(".popup");
 const buttonCloseList = document.querySelectorAll(".popup__close")
@@ -113,24 +108,19 @@ buttonOpenEditProfileForm.addEventListener("click", () => {
     openPopup(popupEdit);
     nameInput.value = profileName.textContent;
     aboutInput.value = profileAbout.textContent;
-    disableButtonSubmit(buttomEditSubmit)
+    popupEditForm.disableButtonSubmit()
     //hideInputError(object, object.formSelector, popupInput)
 });
 
 buttonOpenAddCardForm.addEventListener("click", () => {
     openPopup(popupAdd);
-    disableButtonSubmit(buttomAddSubmit)
+    popapAddForm.disableButtonSubmit()
 });
 
 // Закрытие попап
 const closePopup = (popup) => {
     popup.classList.remove('popup_opened')
     document.removeEventListener('keydown', keyHandler)
-}
-
-function disableButtonSubmit(buttom) {
-    buttom.classList.add("popup__submit_disabled");
-    buttom.disabled = true;
 }
 
 //Закрытие попап на крестик
