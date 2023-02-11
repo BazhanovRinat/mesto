@@ -153,7 +153,7 @@ const popapAddForm = new FormValidator(object, ".popup-add__form")
 popapAddForm.enableValidation()
 
 
-
+export {openPopup}
 
 
 

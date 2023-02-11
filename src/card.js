@@ -1,4 +1,6 @@
-export default class Card {
+import {popupZoom, popupZoomImage, popupZoomText} from './zoomElements.js'
+import { openPopup } from './index.js'
+ export default class Card {
     constructor(name, link, templateSelector) {
         this._name = name
         this._link = link
@@ -20,15 +22,10 @@ export default class Card {
         this._element = null;
     }
 
-    _zoomCard() {
-        this._popupZoom = document.querySelector(".popup-zoom");
-        this._popupZoomImage = document.querySelector('.popup-zoom__image');
-        this._popupZoomText = document.querySelector(".popup-zoom__title");
-        
-        this._popupZoom.classList.add("popup_opened");
-        this._popupZoomImage.src = this._link;
-        this._popupZoomImage.alt = "Карточка"
-        this._popupZoomText.textContent = this._name;
+    _zoomCard() {        
+        popupZoomImage.src = this._link;
+        popupZoomImage.alt = "Карточка"
+        popupZoomText.textContent = this._name;
     }
 
     _setEventListeners() {
@@ -42,6 +39,7 @@ export default class Card {
 
         this._element.querySelector(".element__image").addEventListener("click", () => {
             this._zoomCard();
+            openPopup(popupZoom)
         });
     }
 
@@ -55,15 +53,3 @@ export default class Card {
         return this._element;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -7,6 +7,7 @@ export default class FormValidator {
         this._errorClass = data.errorClass;
         this._formSelector = formSelector;
         this._inputList = Array.from(document.querySelector(this._formSelector).querySelectorAll(this._inputSelector));
+        this._buttomSubmit = document.querySelector(this._formSelector).querySelector(this._submitButtonSelector);
     }
 
     _showInputError() {
@@ -38,7 +39,6 @@ export default class FormValidator {
     }
 
     _toggleButtonState() {
-        this._buttomSubmit = document.querySelector(this._formSelector).querySelector(this._submitButtonSelector);
         if (this._hasInvalidInput()) {
             this._buttomSubmit.classList.add(this._inactiveButtonClass);
             this._buttomSubmit.disabled = true;
@@ -49,7 +49,6 @@ export default class FormValidator {
     }
 
     disableButtonSubmit() {
-        this._buttomSubmit = document.querySelector(this._formSelector).querySelector(this._submitButtonSelector);
         this._buttomSubmit.classList.add(this._inactiveButtonClass);
         this._buttomSubmit.disabled = true;
 }
