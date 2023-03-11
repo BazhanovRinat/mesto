@@ -1,10 +1,9 @@
-import {popupZoom, popupZoomImage, popupZoomText} from './zoomElements.js'
-import { openPopup } from './index.js'
  export default class Card {
-    constructor(name, link, templateSelector) {
+    constructor(name, link, templateSelector, {handleCardClick}) {
         this._name = name
         this._link = link
         this._templateSelector = templateSelector
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -22,12 +21,6 @@ import { openPopup } from './index.js'
         this._element = null;
     }
 
-    _zoomCard() {        
-        popupZoomImage.src = this._link;
-        popupZoomImage.alt = "Карточка"
-        popupZoomText.textContent = this._name;
-    }
-
     _setEventListeners() {
         this._element.querySelector(".element__button").addEventListener("click", () => {
             this._likeCard();
@@ -38,8 +31,7 @@ import { openPopup } from './index.js'
         });
 
         this._element.querySelector(".element__image").addEventListener("click", () => {
-            this._zoomCard();
-            openPopup(popupZoom)
+            this._handleCardClick(this._name, this._link)
         });
     }
 
