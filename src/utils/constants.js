@@ -1,28 +1,15 @@
 export const buttonOpenEditProfileForm = document.querySelector(".profile__edit-button");
-// const popupEdit = document.querySelector(".popup-edit");
-
 export const buttonOpenAddCardForm = document.querySelector(".profile__add-button");
-// const popupAdd = document.querySelector(".popup-add");
-
-// const formEditProfile = document.querySelector(".popup-edit__form");
-// const formAddCard = document.querySelector(".popup-add__form");
+export const buttonOpenAvatarForm = document.querySelector(".profile__avatar-button");
 
 export const nameInput = document.querySelector(".popup__input_name_name");
 export const aboutInput = document.querySelector(".popup__input_name_about");
-// const imageInputLink = document.querySelector(".popup__input_name_link");
-// const nameInputPlace = document.querySelector(".popup__input_name_place-name");
 
 export const profileName = document.querySelector(".profile__name");
 export const profileAbout = document.querySelector(".profile__about");
 
-// const elements = document.querySelector(".elements");
-
-// const cardsTemplate = document.querySelector("#new-cards").content;
-
-// const popupList = document.querySelectorAll(".popup");
-// const buttonCloseList = document.querySelectorAll(".popup__close")
-// const buttomAddSubmit = document.querySelector(".popup-add__submit")
-// const buttomEditSubmit = document.querySelector(".popup-edit__submit")
+export const deleteSubmit = document.querySelector(".popup-delete__submit");
+export let userId
 
 export const initialCards = [
     {

@@ -9,12 +9,13 @@
 
 <body class="page">
     <header class="header">
-        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип"> 
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип">
     </header>
     <main class="content">
         <section class="profile">
             <div class="profile__user">
                 <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Ваш Аватар">
+                <button class="profile__avatar-button"></button>
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <button type="button" class="profile__button profile__edit-button"></button>
@@ -36,12 +37,12 @@
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form popup-edit__form" novalidate>
                 <fieldset class="popup__item">
-                    <input id="name-input" class="popup__input popup__input_name_name" name="name" type="text" placeholder="Имя"
-                        required minlength="2" maxlength="40">
-                        <span class="name-input-error popup__input-error"></span>
-                    <input id="about-input" class="popup__input popup__input_name_about" name="about" type="text" placeholder="О себе"
-                        required minlength="2" maxlength="200">
-                        <span class="about-input-error popup__input-error"></span>
+                    <input id="name-input" class="popup__input popup__input_name_name" name="name" type="text"
+                        placeholder="Имя" required minlength="2" maxlength="40">
+                    <span class="name-input-error popup__input-error"></span>
+                    <input id="about-input" class="popup__input popup__input_name_about" name="about" type="text"
+                        placeholder="О себе" required minlength="2" maxlength="200">
+                    <span class="about-input-error popup__input-error"></span>
                     <button type="submit" class="popup__submit popup-edit__submit">Сохранить</button>
                 </fieldset>
             </form>
@@ -53,12 +54,12 @@
             <h2 class="popup__title">Новое место</h2>
             <form class="popup__form popup-add__form" novalidate>
                 <fieldset class="popup__item">
-                    <input id="place-name-input" class="popup__input popup__input_name_place-name" name="place" type="text"
-                        placeholder="Название" required minlength="2" maxlength="30">
-                        <span class="place-name-input-error popup__input-error"></span>
+                    <input id="place-name-input" class="popup__input popup__input_name_place-name" name="name"
+                        type="text" placeholder="Название" required minlength="2" maxlength="30">
+                    <span class="place-name-input-error popup__input-error"></span>
                     <input id="link-input" class="popup__input popup__input_name_link" name="link" type="url"
                         placeholder="Ссылка на картику" required>
-                        <span class="link-input-error popup__input-error"></span>
+                    <span class="link-input-error popup__input-error"></span>
                     <button type="submit" class="popup__submit popup-add__submit">Сохранить</button>
                 </fieldset>
             </form>
@@ -71,13 +72,37 @@
             <h2 class="popup-zoom__title"></h2>
         </div>
     </div>
+    <div class="popup popup-delete">
+        <div class="popup__container popup-delete__container">
+            <button type="button" class="popup__close"></button>
+            <h2 class="popup__title popup-delete__title">Вы уверены?</h2>
+            <button type="submit" class="popup__submit popup-delete__submit">Да</button>
+        </div>
+    </div>
+    <div class="popup popup-avatar">
+        <div class="popup__container popup-avatar__container">
+            <button type="button" class="popup__close popup-avatar__close" ></button>
+            <h2 class="popup__title popup-avatar__title">Обновить аватар</h2>
+            <form class="popup__form popup-avatar__form" novalidate>
+                <fieldset class="popup__item">
+                    <input id="popup-avatar__input" class="popup__input popup__input_new-avatar" name="avatar"
+                        type="src" placeholder="Название" required>
+                        <span class="popup-avatar__input-error popup__input-error"></span>
+                    <button type="submit" class="popup__submit popup-avatar__submit">Сохранить</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
     <template id="new-cards">
         <div class="element">
             <img class="element__delete" src="<%=require('./images/trash.svg')%>">
             <img class="element__image">
             <div class="element__item">
                 <h2 class="element__name"></h2>
-                <button type="button" class="element__button"></button>
+                <div class="element__like-area">
+                    <button type="button" class="element__button"></button>
+                    <p class="element__like-count"></p>
+                </div>
             </div>
         </div>
     </template>
