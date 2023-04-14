@@ -11,6 +11,7 @@ import {
     buttonOpenEditProfileForm, buttonOpenAddCardForm, nameInput, aboutInput,
     initialCards, object, buttonOpenAvatarForm, deleteSubmit, 
 } from "../utils/constants.js";
+let userId
 
 const api = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-63/',
@@ -19,7 +20,7 @@ const api = new Api({
         'Content-Type': 'application/json'
     }
 })
-let userId
+
 Promise.all([api.profileDataInstall(), api.getInitialCards()])
 
     .then(([data, getCards]) => {
