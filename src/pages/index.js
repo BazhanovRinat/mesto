@@ -1,5 +1,5 @@
 import Card from "../components/Card.js";
-import FormValidator from "../components/validate.js";
+import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -7,7 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
 import Api from "../components/Api.js"
-import PopuoConfirm from "../components/PopupConfirm.js"
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js"
 import {
     buttonOpenEditProfileForm, buttonOpenAddCardForm, nameInput, aboutInput,
     initialCards, object, buttonOpenAvatarForm, deleteSubmit,
@@ -28,7 +28,7 @@ const profileInfo = new UserInfo({
     profileAvatarSelector: ".profile__avatar",
 })
 
-const deletePopup = new PopuoConfirm({ poupSelector: ".popup-delete" })
+const deletePopup = new PopupWithConfirmation({ poupSelector: ".popup-delete" })
 deletePopup.setEventListeners()
 
 
