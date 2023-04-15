@@ -38,7 +38,7 @@ export default class Card {
             }
         });
 
-        this._element.querySelector(".element__delete").addEventListener("click", () => {
+        this._deleteButton.addEventListener("click", () => {
             this._handleDeleteCard(this._cardId)
         });
 
@@ -71,7 +71,8 @@ export default class Card {
         this._elementLikes = this._element.querySelector(".element__like-count");
         this._elementLikes.textContent = this._likes.length
         this._likeButton = this._element.querySelector(".element__button")
-        this._setEventListeners();
+        this._deleteButton = this._element.querySelector(".element__delete")
+            this._setEventListeners();
         this._deleteTrashBtn()
         this._likeCardCheak()
 

@@ -7,9 +7,10 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
 import Api from "../components/Api.js"
+import PopuoConfirm from "../components/PopupConfirm.js"
 import {
     buttonOpenEditProfileForm, buttonOpenAddCardForm, nameInput, aboutInput,
-    initialCards, object, buttonOpenAvatarForm, deleteSubmit, 
+    initialCards, object, buttonOpenAvatarForm, deleteSubmit,
 } from "../utils/constants.js";
 let userId
 
@@ -21,73 +22,102 @@ const api = new Api({
     }
 })
 
-Promise.all([api.profileDataInstall(), api.getInitialCards()])
+const profileInfo = new UserInfo({
+    profileNameSelector: ".profile__name",
+    profileAboutSelector: ".profile__about",
+    profileAvatarSelector: ".profile__avatar",
+})
 
-    .then(([data, getCards]) => {
-        const profileInfo = new UserInfo({
-            profileNameSelector: ".profile__name",
-            profileAboutSelector: ".profile__about",
-            profileAvatarSelector: ".profile__avatar",
-        })
-        profileInfo.setUserInfo(data.name, data.about);
-        profileInfo.setAvatarProfile(data.avatar);
-        userId = data._id
+const deletePopup = new PopuoConfirm({ poupSelector: ".popup-delete" })
+deletePopup.setEventListeners()
 
-        const cardsList = new Section({
-            items: getCards, renderer: (getCards) => {
-                cardsList.addItem(createCard(getCards))
-            }
-        },
-            ".elements"
-        );
-        cardsList.renderItems()
-    });
 
-//Создание карточек
-function createCard(data) {
-    const card = new Card({
-        data: data, templateSelector: "#new-cards",
-        handleCardClick: () => {
-            const imageClick = new PopupWithImage(".popup-zoom")
-            imageClick.open(data.name, data.link)
-            imageClick.setEventListeners()
-        }, userId: userId,
-        handleDeleteCard: (cardId) => {
-            const popupDelete = new Popup(".popup-delete")
-            popupDelete.open()
-            popupDelete.setEventListeners()
-            deleteSubmit.addEventListener("click", () => {
-                card._removeCard()
-                popupDelete.close()
-                api.deleteCard(cardId)
-            })
-        },
-        handleCardLike: (cardId) => {
-            api.cardLike(cardId)
-                .then((data) => {
-                    card.likeCard(data)
-                })
-        },
-        handelCardLikeRemove: (cardId) => {
-            api.cardLikeRemove(cardId)
-                .then((data) => {
-                    card.likeCard(data)
-                })
-        }
-    })
-    const cardElement = card.createCard(data);
-
-    return cardElement
-}
-
-//Загрузка карточек из объекта
 const cardsList = new Section({
-    items: initialCards, renderer: (item) => {
-        cardsList.addItem(createCard(item))
+    renderer: (item) => {
+        const card = new Card({
+            data: item, templateSelector: "#new-cards",
+            handleCardClick: () => {
+                const imageClick = new PopupWithImage(".popup-zoom")
+                imageClick.open(item.name, item.link)
+                imageClick.setEventListeners()
+            }, userId: userId,
+            handleDeleteCard: (cardId) => {
+                deletePopup.open()
+                deletePopup.SetDeleteData(() => {
+                    deletePopup.close()
+                    card._removeCard()
+                    api.deleteCard(cardId)
+                })
+            },
+            handleCardLike: (cardId) => {
+                api.cardLike(cardId)
+                    .then((data) => {
+                        card.likeCard(data)
+                    })
+            },
+            handelCardLikeRemove: (cardId) => {
+                api.cardLikeRemove(cardId)
+                    .then((data) => {
+                        card.likeCard(data)
+                    })
+            }
+        })
+        const cardElement = card.createCard();
+
+        return cardElement
+
     }
 },
     ".elements"
 );
+
+Promise.all([api.profileDataInstall(), api.getInitialCards()])
+
+    .then(([data, getCards]) => {
+        profileInfo.setUserInfo(data.name, data.about);
+        profileInfo.setAvatarProfile(data.avatar);
+        userId = data._id
+
+        cardsList.renderItems(getCards)
+
+    });
+
+//Создание карточек
+// function createCard(data) {
+//     const card = new Card({
+//         data: data, templateSelector: "#new-cards",
+//         handleCardClick: () => {
+//             const imageClick = new PopupWithImage(".popup-zoom")
+//             imageClick.open(data.name, data.link)
+//             imageClick.setEventListeners()
+//         }, userId: userId,
+//         handleDeleteCard: (cardId) => {
+//             const popupDelete = new Popup(".popup-delete")
+//             popupDelete.open()
+//             popupDelete.setEventListeners()
+//             deleteSubmit.addEventListener("click", () => {
+//                 card._removeCard()
+//                 popupDelete.close()
+//                 api.deleteCard(cardId)
+//             })
+//         },
+//         handleCardLike: (cardId) => {
+//             api.cardLike(cardId)
+//                 .then((data) => {
+//                     card.likeCard(data)
+//                 })
+//         },
+//         handelCardLikeRemove: (cardId) => {
+//             api.cardLikeRemove(cardId)
+//                 .then((data) => {
+//                     card.likeCard(data)
+//                 })
+//         }
+//     })
+//     const cardElement = card.createCard(data);
+
+//     return cardElement
+// }
 
 //Попап добавления карточек
 const formAddCards = new PopupWithForm(".popup-add", {
@@ -95,22 +125,16 @@ const formAddCards = new PopupWithForm(".popup-add", {
         formAddCards.renderLoading(true)
         api.postCard(item)
             .then(res => {
-                cardsList.addItem(createCard(res))
+                cardsList.addItem(res)
             })
             .finally(() => {
-                profilePopupSubmit.renderLoading(false)
+                formAddCards.renderLoading(false)
             })
     }
 })
 formAddCards.setEventListeners()
 
 //Профиль
-const profileInfo = new UserInfo({
-    profileNameSelector: ".profile__name",
-    profileAboutSelector: ".profile__about",
-    profileAvatarSelector: ".profile__avatar",
-})
-
 const profilePopupSubmit = new PopupWithForm(".popup-edit", {
     submitForm: (item) => {
         profileInfo.setUserInfo(item.name, item.about)
