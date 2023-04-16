@@ -110,10 +110,10 @@ formAddCards.setEventListeners()
 //Профиль
 const profilePopupSubmit = new PopupWithForm(".popup-edit", {
     submitForm: (item) => {
+        profilePopupSubmit.renderLoading(true)
         api.setProfileInfo(item)
             .then(() => {
                 profileInfo.setUserInfo(item.name, item.about)
-                profilePopupSubmit.renderLoading(true)
                 profilePopupSubmit.close()
             })
             .catch((error) => {
@@ -129,10 +129,10 @@ profilePopupSubmit.setEventListeners()
 //Попап аватара
 const avatarPopupSubmit = new PopupWithForm(".popup-avatar", {
     submitForm: (item) => {
+        avatarPopupSubmit.renderLoading(true)
         api.setProfileAvatar(item)
             .then(() => {
                 profileInfo.setAvatarProfile(item.avatar)
-                avatarPopupSubmit.renderLoading(true)
                 avatarPopupSubmit.close()
             })
             .catch((error) => {
