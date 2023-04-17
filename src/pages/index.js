@@ -60,11 +60,17 @@ const cardsList = new Section({
                     .then((data) => {
                         card.setLikes(data)
                     })
+                    .catch((error) => {
+                        console.log(`${error}`);
+                    })
             },
             handelCardLikeRemove: (cardId) => {
                 api.cardLikeRemove(cardId)
                     .then((data) => {
                         card.setLikes(data)
+                    })
+                    .catch((error) => {
+                        console.log(`${error}`);
                     })
             }
         })
@@ -86,7 +92,11 @@ Promise.all([api.profileDataInstall(), api.getInitialCards()])
 
         cardsList.renderItems(getCards)
 
-    });
+    })
+    .catch((error) => {
+        console.log(`${error}`);
+    })
+    
 
 //Попап добавления карточек
 const formAddCards = new PopupWithForm(".popup-add", {
